@@ -15,7 +15,7 @@ import edu.illinois.cs.cogcomp.lbjava.parse.ChildrenFromVectors;
  */
 public class myTester {
     public static void main(String[] args){
-        boolean doTrain = true;
+        boolean doTrain = false;
         ResourceManager rm = new ChunkerConfigurator().getDefaultConfig();
         String trainSet = "./chunker/data/TBAQ_full_1label_corr.txt";
         String testFile = "./chunker/data/tempeval_platinum_full_1label_corr.txt";
@@ -26,6 +26,7 @@ public class myTester {
         //int[] IterSet = {1,5,10,15,20,25,50};
         int[] IterSet = {50};
         for(int iter : IterSet) {
+            System.out.println("------Iter: "+Integer.toString(iter)+"------");
             parser_train.reset();
             parser_test.reset();
             String modelName = "TBAQ_full_1label_corr" + Integer.toString(iter);
@@ -38,12 +39,12 @@ public class myTester {
                 trainTime.finish();
                 trainer.writeModelsToDisk(rm.getString("modelDirPath"), modelName);
             }
-            /*testTime1.begin();
+            testTime1.begin();
             BIOTester tester1 = new BIOTester(new Chunker(rm.getString("modelDirPath") + modelName + ".lc", rm.getString("modelDirPath") + modelName + ".lex"),
                     new ChunkLabel(),
                     new ChildrenFromVectors(parser_train));
             tester1.test().printPerformance(System.out);
-            testTime1.finish();*/
+            testTime1.finish();
 
             testTime2.begin();
             BIOTester tester2 = new BIOTester(new Chunker(rm.getString("modelDirPath") + modelName + ".lc", rm.getString("modelDirPath") + modelName + ".lex"),
