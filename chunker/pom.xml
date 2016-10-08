@@ -11,11 +11,25 @@
 
     <dependencies>
         <dependency>
+            <groupId>edu.uw.cs.lil</groupId>
+            <artifactId>uwtime</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>edu.illinois.cs.cogcomp</groupId>
+            <artifactId>illinois-tokenizer</artifactId>
+            <version>3.0.76</version>
+        </dependency>
+        <dependency>
+            <groupId>edu.illinois.cs.cogcomp</groupId>
+            <artifactId>illinois-edison</artifactId>
+            <version>3.0.76</version>
+        </dependency>
+        <dependency>
             <groupId>edu.illinois.cs.cogcomp</groupId>
             <artifactId>illinois-core-utilities</artifactId>
             <version>3.0.76</version>
         </dependency>
-
         <dependency>
             <groupId>edu.illinois.cs.cogcomp</groupId>
             <artifactId>LBJava</artifactId>
