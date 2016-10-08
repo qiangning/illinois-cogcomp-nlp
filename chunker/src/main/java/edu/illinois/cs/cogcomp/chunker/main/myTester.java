@@ -24,12 +24,12 @@ public class myTester {
         TimeRecorder testTime1 = new TimeRecorder("Testing on train set");
         TimeRecorder testTime2 = new TimeRecorder("Testing on test set");
         //int[] IterSet = {1,5,10,15,20,25,50};
-        int[] IterSet = {50};
+        int[] IterSet = {1};
         for(int iter : IterSet) {
             System.out.println("------Iter: "+Integer.toString(iter)+"------");
             parser_train.reset();
             parser_test.reset();
-            String modelName = "TBAQ_full_1label_corr" + Integer.toString(iter);
+            String modelName = "TBAQ_full_1label_corr_brown" + Integer.toString(iter);
             //String modelName = "TBAQ_1label_corr_old";
             if (doTrain) {
                 TimeRecorder trainTime = new TimeRecorder("Training");
