@@ -5,4 +5,5 @@
 *.DS_Store
 *.settings
 edison/wordnet/
+serialized_data/
 

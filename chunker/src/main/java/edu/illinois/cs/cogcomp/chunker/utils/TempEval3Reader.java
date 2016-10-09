@@ -1,5 +1,6 @@
 package edu.illinois.cs.cogcomp.chunker.utils;
 
+import edu.illinois.cs.cogcomp.edison.annotators.BrownClusterViewGenerator;
 import edu.uw.cs.lil.tiny.mr.lambda.LogicalExpression;
 import edu.uw.cs.lil.uwtime.chunking.ChunkSequence;
 import edu.uw.cs.lil.uwtime.chunking.chunks.IChunk;
@@ -76,10 +77,10 @@ public class TempEval3Reader {
         }
     }
     private void ApplyCorrection() throws IOException {
-        AnnotationCorrections corrections = new AnnotationCorrections("./data/fromUWTime/corrections.csv");
+        AnnotationCorrections corrections = new AnnotationCorrections("/home/qning2/temporal/data/fromUWTime/corrections.csv");
         corrections.applyCorrections(dataset);
     }
-    private void dataset2CoNLL(String out_dir, String out_fname, boolean skipEmpty, boolean singleLabel){
+    private void dataset2CoNLL(String out_dir, String out_fname, boolean skipEmpty, boolean singleLabel, boolean brownid){
         LinkedList<String> conll = new LinkedList<>();
         for(TemporalDocument document : dataset.getDocuments()) {
             for(TemporalSentence sentence : document.withoutDCT().getSentences()){
@@ -122,11 +123,28 @@ public class TempEval3Reader {
                         label[j] = "I-"+type[i];
                     }
                 }
-                /*Add to output stream*/
-                for(int i=0;i<N;i++){
-                    conll.add(tokens.get(i)+" "+pos_tag[i]+" "+label[i]);
+                /*Brown Cluster, if needed*/
+                if (brownid) {
+                    try {
+                        BrownClusterWrapper mybrown = new BrownClusterWrapper("test", BrownClusterViewGenerator.file100);
+                        for(int i=0;i<N;i++){
+                            conll.add(tokens.get(i) + " " + pos_tag[i] + " " + label[i] + mybrown.getClusterId(tokens.get(i)));
+                        }
+                    } catch (Exception err) {
+                        err.printStackTrace();
+                    }
+                }
+                else{
+                    for(int i=0;i<N;i++){
+                        conll.add(tokens.get(i) + " " + pos_tag[i] + " " + label[i]);
+                    }
                 }
                 conll.add("\n");
+                /*Add to output stream*//*
+                /*for(int i=0;i<N;i++){
+                    conll.add(tokens.get(i) + " " + pos_tag[i] + " " + label[i]);
+                }
+                conll.add("\n");*/
             }
         }
 
@@ -169,7 +187,7 @@ public class TempEval3Reader {
         TempEval3Reader myReader = new TempEval3Reader(type,datafolder,dir);
         myReader.ReadData();
         myReader.ApplyCorrection();
-        myReader.dataset2CoNLL(out_dir,out_fname,true,true);
+        myReader.dataset2CoNLL(out_dir,out_fname,true,true,true);
         //myReader.dataset2sentence(out_dir,out_fname,false);
     }
 }
