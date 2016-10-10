@@ -55,14 +55,27 @@ public class CoNLL2000Parser extends ColumnFormat {
         String pos = line[1];
         if (pos.equals("-"))
             pos = null;
-        Token t = new Token(new Word(line[0], pos,null,"0000",null,-1,-1), null, line[2]);
+        String clusterId;
+        if (line.length<4){
+            clusterId = null;
+        }
+        else{
+            clusterId = line[3];
+        }
+        Token t = new Token(new Word(line[0], pos,null,clusterId,null,-1,-1), null, line[2]);
 
         for (line = (String[]) super.next(); line != null && line.length > 0; line =
                 (String[]) super.next()) {
             pos = line[1];
             if (pos.equals("-"))
                 pos = null;
-            t.next = new Token(new Word(line[0], pos,null,"0000",null,-1,-1), t, line[2]);
+            if (line.length<4){
+                clusterId = null;
+            }
+            else{
+                clusterId = line[3];
+            }
+            t.next = new Token(new Word(line[0], pos,null,clusterId,null,-1,-1), t, line[2]);
             t = (Token) t.next;
         }
 

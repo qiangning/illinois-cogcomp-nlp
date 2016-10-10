@@ -16,20 +16,21 @@ import edu.illinois.cs.cogcomp.lbjava.parse.ChildrenFromVectors;
 public class myTester {
     public static void main(String[] args){
         boolean doTrain = false;
+        boolean doTest = true;
         ResourceManager rm = new ChunkerConfigurator().getDefaultConfig();
-        String trainSet = "./chunker/data/TBAQ_full_1label_corr.txt";
-        String testFile = "./chunker/data/tempeval_platinum_full_1label_corr.txt";
+        String trainSet = "./chunker/data/TBAQ_1label_corr_brown1000.txt";
+        String testFile = "./chunker/data/tempeval_platinum_full_1label_corr_brown1000.txt";
         Parser parser_train = new CoNLL2000Parser(trainSet);
         Parser parser_test = new CoNLL2000Parser(testFile);
         TimeRecorder testTime1 = new TimeRecorder("Testing on train set");
         TimeRecorder testTime2 = new TimeRecorder("Testing on test set");
         //int[] IterSet = {1,5,10,15,20,25,50};
-        int[] IterSet = {1};
+        int[] IterSet = {50};
         for(int iter : IterSet) {
             System.out.println("------Iter: "+Integer.toString(iter)+"------");
             parser_train.reset();
             parser_test.reset();
-            String modelName = "TBAQ_full_1label_corr_brown" + Integer.toString(iter);
+            String modelName = "TBAQ_1label_corr_brown1000_iter" + Integer.toString(iter);
             //String modelName = "TBAQ_1label_corr_old";
             if (doTrain) {
                 TimeRecorder trainTime = new TimeRecorder("Training");
@@ -39,19 +40,21 @@ public class myTester {
                 trainTime.finish();
                 trainer.writeModelsToDisk(rm.getString("modelDirPath"), modelName);
             }
-            testTime1.begin();
-            BIOTester tester1 = new BIOTester(new Chunker(rm.getString("modelDirPath") + modelName + ".lc", rm.getString("modelDirPath") + modelName + ".lex"),
-                    new ChunkLabel(),
-                    new ChildrenFromVectors(parser_train));
-            tester1.test().printPerformance(System.out);
-            testTime1.finish();
+            if(doTest) {
+                testTime1.begin();
+                BIOTester tester1 = new BIOTester(new Chunker(rm.getString("modelDirPath") + modelName + ".lc", rm.getString("modelDirPath") + modelName + ".lex"),
+                        new ChunkLabel(),
+                        new ChildrenFromVectors(parser_train));
+                tester1.test().printPerformance(System.out);
+                testTime1.finish();
 
-            testTime2.begin();
-            BIOTester tester2 = new BIOTester(new Chunker(rm.getString("modelDirPath") + modelName + ".lc", rm.getString("modelDirPath") + modelName + ".lex"),
-                    new ChunkLabel(),
-                    new ChildrenFromVectors(parser_test));
-            tester2.test().printPerformance(System.out);
-            testTime2.finish();
+                testTime2.begin();
+                BIOTester tester2 = new BIOTester(new Chunker(rm.getString("modelDirPath") + modelName + ".lc", rm.getString("modelDirPath") + modelName + ".lex"),
+                        new ChunkLabel(),
+                        new ChildrenFromVectors(parser_test));
+                tester2.test().printPerformance(System.out);
+                testTime2.finish();
+            }
         }
     }
 }

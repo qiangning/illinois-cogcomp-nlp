@@ -82,6 +82,15 @@ public class TempEval3Reader {
     }
     private void dataset2CoNLL(String out_dir, String out_fname, boolean skipEmpty, boolean singleLabel, boolean brownid){
         LinkedList<String> conll = new LinkedList<>();
+        BrownClusterWrapper mybrown=null;
+        if(brownid){
+            try {
+                mybrown = new BrownClusterWrapper("test", BrownClusterViewGenerator.file1000);
+            }catch (Exception err) {
+                brownid = false;
+                err.printStackTrace();
+            }
+        }
         for(TemporalDocument document : dataset.getDocuments()) {
             for(TemporalSentence sentence : document.withoutDCT().getSentences()){
                 /*Get tokens*/
@@ -124,18 +133,11 @@ public class TempEval3Reader {
                     }
                 }
                 /*Brown Cluster, if needed*/
-                if (brownid) {
-                    try {
-                        BrownClusterWrapper mybrown = new BrownClusterWrapper("test", BrownClusterViewGenerator.file100);
-                        for(int i=0;i<N;i++){
-                            conll.add(tokens.get(i) + " " + pos_tag[i] + " " + label[i] + mybrown.getClusterId(tokens.get(i)));
-                        }
-                    } catch (Exception err) {
-                        err.printStackTrace();
+                for(int i=0;i<N;i++){
+                    if (brownid) {
+                        conll.add(tokens.get(i) + " " + pos_tag[i] + " " + label[i] + " " + mybrown.getClusterId(tokens.get(i)));
                     }
-                }
-                else{
-                    for(int i=0;i<N;i++){
+                    else{
                         conll.add(tokens.get(i) + " " + pos_tag[i] + " " + label[i]);
                     }
                 }
@@ -181,9 +183,9 @@ public class TempEval3Reader {
     public static void main(String[] args) throws IOException, SAXException, ParserConfigurationException, InterruptedException{
         String type = "TIMEML";
         String datafolder = "TimeBank";
-        String dir = "~/temporal/data/TempEval3/Training/TBAQ-cleaned/";
+        String dir = "/home/qning2/temporal/data/fromUWTime";
         String out_dir = "./chunker/data/";
-        String out_fname = "TimeBank_1label_corr_brown.txt";
+        String out_fname = "TimeBank_1label_corr_brown1000.txt";
         TempEval3Reader myReader = new TempEval3Reader(type,datafolder,dir);
         myReader.ReadData();
         myReader.ApplyCorrection();
