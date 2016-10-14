@@ -18,19 +18,19 @@ public class myTester {
         boolean doTrain = false;
         boolean doTest = true;
         ResourceManager rm = new ChunkerConfigurator().getDefaultConfig();
-        String trainSet = "./chunker/data/TBAQ_1label_corr_brown1000.txt";
-        String testFile = "./chunker/data/tempeval_platinum_full_1label_corr_brown1000.txt";
+        String trainSet = "./chunker/data/TBAQ_1label_corr_brown100.txt";
+        String testFile = "./chunker/data/tempeval_platinum_full_1label_corr_brown100.txt";
         Parser parser_train = new CoNLL2000Parser(trainSet);
         Parser parser_test = new CoNLL2000Parser(testFile);
         TimeRecorder testTime1 = new TimeRecorder("Testing on train set");
         TimeRecorder testTime2 = new TimeRecorder("Testing on test set");
-        //int[] IterSet = {1,5,10,15,20,25,50};
-        int[] IterSet = {50};
+        int[] IterSet = {1,5,10,15,20,25,50};
+        //int[] IterSet = {50};
         for(int iter : IterSet) {
             System.out.println("------Iter: "+Integer.toString(iter)+"------");
             parser_train.reset();
             parser_test.reset();
-            String modelName = "TBAQ_1label_corr_brown1000_iter" + Integer.toString(iter);
+            String modelName = "TBAQ_1label_corr_brown100_iter" + Integer.toString(iter);
             //String modelName = "TBAQ_1label_corr_old";
             if (doTrain) {
                 TimeRecorder trainTime = new TimeRecorder("Training");

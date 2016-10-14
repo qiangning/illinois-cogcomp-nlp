@@ -1,5 +1,6 @@
 package edu.illinois.cs.cogcomp.chunker.utils;
 
+import edu.illinois.cs.cogcomp.core.utilities.StringUtils;
 import edu.illinois.cs.cogcomp.edison.annotators.BrownClusterViewGenerator;
 import edu.uw.cs.lil.tiny.mr.lambda.LogicalExpression;
 import edu.uw.cs.lil.uwtime.chunking.ChunkSequence;
@@ -135,7 +136,11 @@ public class TempEval3Reader {
                 /*Brown Cluster, if needed*/
                 for(int i=0;i<N;i++){
                     if (brownid) {
-                        conll.add(tokens.get(i) + " " + pos_tag[i] + " " + label[i] + " " + mybrown.getClusterId(tokens.get(i)));
+                        String clusterId = mybrown.getClusterId(tokens.get(i));
+                        if(clusterId.length()<20){
+                            clusterId = zeropad(clusterId,20);
+                        }
+                        conll.add(tokens.get(i) + " " + pos_tag[i] + " " + label[i] + " " + clusterId);
                     }
                     else{
                         conll.add(tokens.get(i) + " " + pos_tag[i] + " " + label[i]);
@@ -158,6 +163,16 @@ public class TempEval3Reader {
             e.printStackTrace();
         }
         System.out.println("CoNLL format file generated successfully and saved to "+out_dir+out_fname);
+    }
+    private String zeropad(String s, int n){
+        int len = s.length();
+        if(len>=n){
+            return s;
+        }
+        for(int i=0;i<n-len;i++){
+            s = s + "0";
+        }
+        return s;
     }
 
     private void dataset2sentence(String out_dir, String out_fname, boolean skipEmpty){
@@ -182,10 +197,10 @@ public class TempEval3Reader {
     }
     public static void main(String[] args) throws IOException, SAXException, ParserConfigurationException, InterruptedException{
         String type = "TIMEML";
-        String datafolder = "TimeBank";
+        String datafolder = "AQUAINT";
         String dir = "/home/qning2/temporal/data/fromUWTime";
         String out_dir = "./chunker/data/";
-        String out_fname = "TimeBank_1label_corr_brown1000.txt";
+        String out_fname = "AQUAINT_1label_corr_brown1000.txt";
         TempEval3Reader myReader = new TempEval3Reader(type,datafolder,dir);
         myReader.ReadData();
         myReader.ApplyCorrection();

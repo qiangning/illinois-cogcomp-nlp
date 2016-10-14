@@ -143,7 +143,7 @@ public class Chunker extends SparseNetworkLearner
       if (!(example instanceof Token || example instanceof Object[]))
       {
         String type = example == null ? "null" : example.getClass().getName();
-        System.err.println("Classifier 'Chunker(Token)' defined on line 173 of chunk.lbj received '" + type + "' as input.");
+        System.err.println("Classifier 'Chunker(Token)' defined on line 176 of chunk.lbj received '" + type + "' as input.");
         new Exception().printStackTrace();
         System.exit(1);
       }
@@ -173,7 +173,7 @@ public class Chunker extends SparseNetworkLearner
       if (!(examples instanceof Token[] || examples instanceof Object[][]))
       {
         String type = examples == null ? "null" : examples.getClass().getName();
-        System.err.println("Classifier 'Chunker(Token)' defined on line 173 of chunk.lbj received '" + type + "' as input.");
+        System.err.println("Classifier 'Chunker(Token)' defined on line 176 of chunk.lbj received '" + type + "' as input.");
         new Exception().printStackTrace();
         System.exit(1);
       }
@@ -210,7 +210,7 @@ public class Chunker extends SparseNetworkLearner
       if (!(__example instanceof Token || __example instanceof Object[]))
       {
         String type = __example == null ? "null" : __example.getClass().getName();
-        System.err.println("Classifier 'Chunker(Token)' defined on line 173 of chunk.lbj received '" + type + "' as input.");
+        System.err.println("Classifier 'Chunker(Token)' defined on line 176 of chunk.lbj received '" + type + "' as input.");
         new Exception().printStackTrace();
         System.exit(1);
       }
@@ -236,7 +236,7 @@ public class Chunker extends SparseNetworkLearner
       if (!(__example instanceof Token || __example instanceof Object[]))
       {
         String type = __example == null ? "null" : __example.getClass().getName();
-        System.err.println("Classifier 'Chunker(Token)' defined on line 173 of chunk.lbj received '" + type + "' as input.");
+        System.err.println("Classifier 'Chunker(Token)' defined on line 176 of chunk.lbj received '" + type + "' as input.");
         new Exception().printStackTrace();
         System.exit(1);
       }
@@ -262,7 +262,7 @@ public class Chunker extends SparseNetworkLearner
       if (!(__example instanceof Token || __example instanceof Object[]))
       {
         String type = __example == null ? "null" : __example.getClass().getName();
-        System.err.println("Classifier 'Chunker(Token)' defined on line 173 of chunk.lbj received '" + type + "' as input.");
+        System.err.println("Classifier 'Chunker(Token)' defined on line 176 of chunk.lbj received '" + type + "' as input.");
         new Exception().printStackTrace();
         System.exit(1);
       }
@@ -288,7 +288,7 @@ public class Chunker extends SparseNetworkLearner
       if (!(examples instanceof Token[] || examples instanceof Object[][]))
       {
         String type = examples == null ? "null" : examples.getClass().getName();
-        System.err.println("Classifier 'Chunker(Token)' defined on line 173 of chunk.lbj received '" + type + "' as input.");
+        System.err.println("Classifier 'Chunker(Token)' defined on line 176 of chunk.lbj received '" + type + "' as input.");
         new Exception().printStackTrace();
         System.exit(1);
       }
@@ -350,18 +350,6 @@ public class Chunker extends SparseNetworkLearner
   public int hashCode() { return "Chunker".hashCode(); }
   public boolean equals(Object o) { return o instanceof Chunker; }
 
-  public void setParameters(edu.illinois.cs.cogcomp.lbjava.learn.SparseNetworkLearner.Parameters a0)
-  {
-    if (isClone)
-    {
-      loadInstance();
-      instance.setParameters(a0);
-      return;
-    }
-
-    super.setParameters(a0);
-  }
-
   public void learn(int[] a0, double[] a1, int[] a2, double[] a3)
   {
     if (isClone)
@@ -374,15 +362,15 @@ public class Chunker extends SparseNetworkLearner
     super.learn(a0, a1, a2, a3);
   }
 
-  public edu.illinois.cs.cogcomp.lbjava.classify.FeatureVector classify(int[] a0, double[] a1)
+  public java.lang.String discreteValue(int[] a0, double[] a1)
   {
     if (isClone)
     {
       loadInstance();
-      return instance.classify(a0, a1);
+      return instance.discreteValue(a0, a1);
     }
 
-    return super.classify(a0, a1);
+    return super.discreteValue(a0, a1);
   }
 
   public edu.illinois.cs.cogcomp.lbjava.classify.Feature featureValue(int[] a0, double[] a1)
@@ -396,15 +384,15 @@ public class Chunker extends SparseNetworkLearner
     return super.featureValue(a0, a1);
   }
 
-  public java.lang.String discreteValue(int[] a0, double[] a1)
+  public edu.illinois.cs.cogcomp.lbjava.classify.FeatureVector classify(int[] a0, double[] a1)
   {
     if (isClone)
     {
       loadInstance();
-      return instance.discreteValue(a0, a1);
+      return instance.classify(a0, a1);
     }
 
-    return super.discreteValue(a0, a1);
+    return super.classify(a0, a1);
   }
 
   public void setLabeler(edu.illinois.cs.cogcomp.lbjava.classify.Classifier a0)
@@ -455,6 +443,17 @@ public class Chunker extends SparseNetworkLearner
     super.forget();
   }
 
+  public edu.illinois.cs.cogcomp.lbjava.classify.ScoreSet scores(java.lang.Object a0, java.util.Collection a1)
+  {
+    if (isClone)
+    {
+      loadInstance();
+      return instance.scores(a0, a1);
+    }
+
+    return super.scores(a0, a1);
+  }
+
   public edu.illinois.cs.cogcomp.lbjava.classify.ScoreSet scores(int[] a0, double[] a1)
   {
     if (isClone)
@@ -477,15 +476,16 @@ public class Chunker extends SparseNetworkLearner
     return super.scores(a0, a1, a2);
   }
 
-  public edu.illinois.cs.cogcomp.lbjava.classify.ScoreSet scores(java.lang.Object a0, java.util.Collection a1)
+  public void setParameters(edu.illinois.cs.cogcomp.lbjava.learn.SparseNetworkLearner.Parameters a0)
   {
     if (isClone)
     {
       loadInstance();
-      return instance.scores(a0, a1);
+      instance.setParameters(a0);
+      return;
     }
 
-    return super.scores(a0, a1);
+    super.setParameters(a0);
   }
 
   public void doneWithRound()
@@ -683,18 +683,6 @@ public class Chunker extends SparseNetworkLearner
     super.initialize(a0, a1);
   }
 
-  public void setParameters(edu.illinois.cs.cogcomp.lbjava.learn.Learner.Parameters a0)
-  {
-    if (isClone)
-    {
-      loadInstance();
-      instance.setParameters(a0);
-      return;
-    }
-
-    super.setParameters(a0);
-  }
-
   public void learn(edu.illinois.cs.cogcomp.lbjava.classify.FeatureVector[] a0)
   {
     if (isClone)
@@ -717,50 +705,6 @@ public class Chunker extends SparseNetworkLearner
     }
 
     super.learn(a0);
-  }
-
-  public edu.illinois.cs.cogcomp.lbjava.classify.FeatureVector[] classify(edu.illinois.cs.cogcomp.lbjava.classify.FeatureVector[] a0)
-  {
-    if (isClone)
-    {
-      loadInstance();
-      return instance.classify(a0);
-    }
-
-    return super.classify(a0);
-  }
-
-  public edu.illinois.cs.cogcomp.lbjava.classify.FeatureVector[] classify(java.lang.Object[][] a0)
-  {
-    if (isClone)
-    {
-      loadInstance();
-      return instance.classify(a0);
-    }
-
-    return super.classify(a0);
-  }
-
-  public edu.illinois.cs.cogcomp.lbjava.classify.FeatureVector classify(edu.illinois.cs.cogcomp.lbjava.classify.FeatureVector a0)
-  {
-    if (isClone)
-    {
-      loadInstance();
-      return instance.classify(a0);
-    }
-
-    return super.classify(a0);
-  }
-
-  public edu.illinois.cs.cogcomp.lbjava.classify.Feature featureValue(edu.illinois.cs.cogcomp.lbjava.classify.FeatureVector a0)
-  {
-    if (isClone)
-    {
-      loadInstance();
-      return instance.featureValue(a0);
-    }
-
-    return super.featureValue(a0);
   }
 
   public java.lang.String discreteValue(edu.illinois.cs.cogcomp.lbjava.classify.FeatureVector a0)
@@ -794,6 +738,50 @@ public class Chunker extends SparseNetworkLearner
     }
 
     return super.realValue(a0);
+  }
+
+  public edu.illinois.cs.cogcomp.lbjava.classify.Feature featureValue(edu.illinois.cs.cogcomp.lbjava.classify.FeatureVector a0)
+  {
+    if (isClone)
+    {
+      loadInstance();
+      return instance.featureValue(a0);
+    }
+
+    return super.featureValue(a0);
+  }
+
+  public edu.illinois.cs.cogcomp.lbjava.classify.FeatureVector[] classify(java.lang.Object[][] a0)
+  {
+    if (isClone)
+    {
+      loadInstance();
+      return instance.classify(a0);
+    }
+
+    return super.classify(a0);
+  }
+
+  public edu.illinois.cs.cogcomp.lbjava.classify.FeatureVector[] classify(edu.illinois.cs.cogcomp.lbjava.classify.FeatureVector[] a0)
+  {
+    if (isClone)
+    {
+      loadInstance();
+      return instance.classify(a0);
+    }
+
+    return super.classify(a0);
+  }
+
+  public edu.illinois.cs.cogcomp.lbjava.classify.FeatureVector classify(edu.illinois.cs.cogcomp.lbjava.classify.FeatureVector a0)
+  {
+    if (isClone)
+    {
+      loadInstance();
+      return instance.classify(a0);
+    }
+
+    return super.classify(a0);
   }
 
   public void readModel(java.lang.String a0)
@@ -875,6 +863,18 @@ public class Chunker extends SparseNetworkLearner
     }
 
     return super.scores(a0);
+  }
+
+  public void setParameters(edu.illinois.cs.cogcomp.lbjava.learn.Learner.Parameters a0)
+  {
+    if (isClone)
+    {
+      loadInstance();
+      instance.setParameters(a0);
+      return;
+    }
+
+    super.setParameters(a0);
   }
 
   public void setLossFlag()
@@ -1004,7 +1004,7 @@ public class Chunker extends SparseNetworkLearner
     super.setEncoding(a0);
   }
 
-  public void setModelLocation(java.net.URL a0)
+  public void setModelLocation(java.lang.String a0)
   {
     if (isClone)
     {
@@ -1016,7 +1016,7 @@ public class Chunker extends SparseNetworkLearner
     super.setModelLocation(a0);
   }
 
-  public void setModelLocation(java.lang.String a0)
+  public void setModelLocation(java.net.URL a0)
   {
     if (isClone)
     {

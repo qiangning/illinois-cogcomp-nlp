@@ -32,7 +32,7 @@ public class Formpp extends Classifier
     if (!(__example instanceof Token))
     {
       String type = __example == null ? "null" : __example.getClass().getName();
-      System.err.println("Classifier 'Formpp(Token)' defined on line 135 of chunk.lbj received '" + type + "' as input.");
+      System.err.println("Classifier 'Formpp(Token)' defined on line 138 of chunk.lbj received '" + type + "' as input.");
       new Exception().printStackTrace();
       System.exit(1);
     }
@@ -89,7 +89,7 @@ public class Formpp extends Classifier
     if (!(examples instanceof Token[]))
     {
       String type = examples == null ? "null" : examples.getClass().getName();
-      System.err.println("Classifier 'Formpp(Token)' defined on line 135 of chunk.lbj received '" + type + "' as input.");
+      System.err.println("Classifier 'Formpp(Token)' defined on line 138 of chunk.lbj received '" + type + "' as input.");
       new Exception().printStackTrace();
       System.exit(1);
     }

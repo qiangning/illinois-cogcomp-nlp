@@ -34,7 +34,7 @@ public class Mixed extends Classifier
     if (!(__example instanceof Token))
     {
       String type = __example == null ? "null" : __example.getClass().getName();
-      System.err.println("Classifier 'Mixed(Token)' defined on line 71 of chunk.lbj received '" + type + "' as input.");
+      System.err.println("Classifier 'Mixed(Token)' defined on line 74 of chunk.lbj received '" + type + "' as input.");
       new Exception().printStackTrace();
       System.exit(1);
     }
@@ -106,7 +106,7 @@ public class Mixed extends Classifier
     if (!(examples instanceof Token[]))
     {
       String type = examples == null ? "null" : examples.getClass().getName();
-      System.err.println("Classifier 'Mixed(Token)' defined on line 71 of chunk.lbj received '" + type + "' as input.");
+      System.err.println("Classifier 'Mixed(Token)' defined on line 74 of chunk.lbj received '" + type + "' as input.");
       new Exception().printStackTrace();
       System.exit(1);
     }

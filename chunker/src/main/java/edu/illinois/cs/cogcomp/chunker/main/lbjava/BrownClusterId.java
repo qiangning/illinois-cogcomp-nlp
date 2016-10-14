@@ -1,5 +1,5 @@
 // Modifying this comment will cause the next execution of LBJava to overwrite this file.
-// F1B88000000000000000B49CC2E4E2A4D294555507A2ACF2FC37EC92D2E294D22FC41D809CFCE4DC3582FCF2A41D450B1D558A6582E4DCB2E450B08E188806037DA41A4A8A435DA51A61002AC18ABF84000000
+// F1B88000000000000000B49CC2E4E2A4D294555507A2ACF2FC37EC92D2E294D22FC41D809CFCE4DC3582FCF2A41D450B1D558A6582E4DCB2E45503050B20B0AE1888060909E517962517941566E5AB6818E828986A53455A121059660759644045A1A10C59A13105A64025A5B000C545A3B25D000000
 
 package edu.illinois.cs.cogcomp.chunker.main.lbjava;
 
@@ -44,8 +44,17 @@ public class BrownClusterId extends Classifier
     String __id;
     String __value;
 
-    __id = "" + (word.wordSense);
-    __value = "true";
+    __id = "0";
+    __value = "" + (word.wordSense.substring(0, 4));
+    __result.addFeature(new DiscretePrimitiveStringFeature(this.containingPackage, this.name, __id, __value, valueIndexOf(__value), (short) 0));
+    __id = "1";
+    __value = "" + (word.wordSense.substring(0, 6));
+    __result.addFeature(new DiscretePrimitiveStringFeature(this.containingPackage, this.name, __id, __value, valueIndexOf(__value), (short) 0));
+    __id = "2";
+    __value = "" + (word.wordSense.substring(0, 10));
+    __result.addFeature(new DiscretePrimitiveStringFeature(this.containingPackage, this.name, __id, __value, valueIndexOf(__value), (short) 0));
+    __id = "3";
+    __value = "" + (word.wordSense.substring(0, 20));
     __result.addFeature(new DiscretePrimitiveStringFeature(this.containingPackage, this.name, __id, __value, valueIndexOf(__value), (short) 0));
     return __result;
   }

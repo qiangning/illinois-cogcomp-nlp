@@ -9,7 +9,10 @@ import edu.illinois.cs.cogcomp.chunker.utils.Constants;
 
 discrete% BrownClusterId(Token word) <-
 {
-    sense word.wordSense;
+    sense 0:word.wordSense.substring(0,4);
+    sense 1:word.wordSense.substring(0,6);
+    sense 2:word.wordSense.substring(0,10);
+    sense 3:word.wordSense.substring(0,20);
 }
 /**
   * Feature generator that senses the chunk tags of the previous two words.
