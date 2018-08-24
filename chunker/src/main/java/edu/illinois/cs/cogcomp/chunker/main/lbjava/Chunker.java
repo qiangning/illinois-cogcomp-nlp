@@ -268,16 +268,15 @@ public class Chunker extends SparseNetworkLearner
   public int hashCode() { return "Chunker".hashCode(); }
   public boolean equals(Object o) { return o instanceof Chunker; }
 
-  public void learn(int[] a0, double[] a1, int[] a2, double[] a3)
+  public edu.illinois.cs.cogcomp.lbjava.classify.FeatureVector classify(int[] a0, double[] a1)
   {
     if (isClone)
     {
       loadInstance();
-      instance.learn(a0, a1, a2, a3);
-      return;
+      return instance.classify(a0, a1);
     }
 
-    super.learn(a0, a1, a2, a3);
+    return super.classify(a0, a1);
   }
 
   public edu.illinois.cs.cogcomp.lbjava.classify.Feature featureValue(int[] a0, double[] a1)
@@ -302,15 +301,16 @@ public class Chunker extends SparseNetworkLearner
     return super.discreteValue(a0, a1);
   }
 
-  public edu.illinois.cs.cogcomp.lbjava.classify.FeatureVector classify(int[] a0, double[] a1)
+  public void learn(int[] a0, double[] a1, int[] a2, double[] a3)
   {
     if (isClone)
     {
       loadInstance();
-      return instance.classify(a0, a1);
+      instance.learn(a0, a1, a2, a3);
+      return;
     }
 
-    return super.classify(a0, a1);
+    super.learn(a0, a1, a2, a3);
   }
 
   public void setLabeler(edu.illinois.cs.cogcomp.lbjava.classify.Classifier a0)
@@ -613,28 +613,37 @@ public class Chunker extends SparseNetworkLearner
     super.initialize(a0, a1);
   }
 
-  public void learn(edu.illinois.cs.cogcomp.lbjava.classify.FeatureVector[] a0)
+  public edu.illinois.cs.cogcomp.lbjava.classify.FeatureVector[] classify(java.lang.Object[][] a0)
   {
     if (isClone)
     {
       loadInstance();
-      instance.learn(a0);
-      return;
+      return instance.classify(a0);
     }
 
-    super.learn(a0);
+    return super.classify(a0);
   }
 
-  public void learn(edu.illinois.cs.cogcomp.lbjava.classify.FeatureVector a0)
+  public edu.illinois.cs.cogcomp.lbjava.classify.FeatureVector[] classify(edu.illinois.cs.cogcomp.lbjava.classify.FeatureVector[] a0)
   {
     if (isClone)
     {
       loadInstance();
-      instance.learn(a0);
-      return;
+      return instance.classify(a0);
     }
 
-    super.learn(a0);
+    return super.classify(a0);
+  }
+
+  public edu.illinois.cs.cogcomp.lbjava.classify.FeatureVector classify(edu.illinois.cs.cogcomp.lbjava.classify.FeatureVector a0)
+  {
+    if (isClone)
+    {
+      loadInstance();
+      return instance.classify(a0);
+    }
+
+    return super.classify(a0);
   }
 
   public edu.illinois.cs.cogcomp.lbjava.classify.Feature featureValue(edu.illinois.cs.cogcomp.lbjava.classify.FeatureVector a0)
@@ -681,59 +690,28 @@ public class Chunker extends SparseNetworkLearner
     return super.realValue(a0);
   }
 
-  public edu.illinois.cs.cogcomp.lbjava.classify.FeatureVector[] classify(java.lang.Object[][] a0)
+  public void learn(edu.illinois.cs.cogcomp.lbjava.classify.FeatureVector a0)
   {
     if (isClone)
     {
       loadInstance();
-      return instance.classify(a0);
+      instance.learn(a0);
+      return;
     }
 
-    return super.classify(a0);
+    super.learn(a0);
   }
 
-  public edu.illinois.cs.cogcomp.lbjava.classify.FeatureVector[] classify(edu.illinois.cs.cogcomp.lbjava.classify.FeatureVector[] a0)
+  public void learn(edu.illinois.cs.cogcomp.lbjava.classify.FeatureVector[] a0)
   {
     if (isClone)
     {
       loadInstance();
-      return instance.classify(a0);
+      instance.learn(a0);
+      return;
     }
 
-    return super.classify(a0);
-  }
-
-  public edu.illinois.cs.cogcomp.lbjava.classify.FeatureVector classify(edu.illinois.cs.cogcomp.lbjava.classify.FeatureVector a0)
-  {
-    if (isClone)
-    {
-      loadInstance();
-      return instance.classify(a0);
-    }
-
-    return super.classify(a0);
-  }
-
-  public edu.illinois.cs.cogcomp.lbjava.learn.Learner emptyClone()
-  {
-    if (isClone)
-    {
-      loadInstance();
-      return instance.emptyClone();
-    }
-
-    return super.emptyClone();
-  }
-
-  public edu.illinois.cs.cogcomp.lbjava.learn.Lexicon getLabelLexicon()
-  {
-    if (isClone)
-    {
-      loadInstance();
-      return instance.getLabelLexicon();
-    }
-
-    return super.getLabelLexicon();
+    super.learn(a0);
   }
 
   public void readModel(java.net.URL a0)
@@ -782,6 +760,17 @@ public class Chunker extends SparseNetworkLearner
     }
 
     super.readLexiconOnDemand(a0);
+  }
+
+  public edu.illinois.cs.cogcomp.lbjava.learn.Learner emptyClone()
+  {
+    if (isClone)
+    {
+      loadInstance();
+      return instance.emptyClone();
+    }
+
+    return super.emptyClone();
   }
 
   public edu.illinois.cs.cogcomp.lbjava.classify.ScoreSet scores(edu.illinois.cs.cogcomp.lbjava.classify.FeatureVector a0)
@@ -874,6 +863,17 @@ public class Chunker extends SparseNetworkLearner
     }
 
     return super.getExtractor();
+  }
+
+  public edu.illinois.cs.cogcomp.lbjava.learn.Lexicon getLabelLexicon()
+  {
+    if (isClone)
+    {
+      loadInstance();
+      return instance.getLabelLexicon();
+    }
+
+    return super.getLabelLexicon();
   }
 
   public void setLexicon(edu.illinois.cs.cogcomp.lbjava.learn.Lexicon a0)

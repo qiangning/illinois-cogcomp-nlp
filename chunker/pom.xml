@@ -75,7 +75,7 @@
 
     </dependencies>
 
-    <!--<build>
+    <build>
         <plugins>
             <plugin>
                 <groupId>edu.illinois.cs.cogcomp</groupId>
@@ -108,7 +108,7 @@
                 </executions>
             </plugin>
         </plugins>
-    </build>-->
+    </build>
     <pluginRepositories>
         <pluginRepository>
             <id>CogcompSoftware</id>

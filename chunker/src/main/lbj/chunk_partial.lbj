@@ -172,8 +172,8 @@ discrete% Formpp(Token word) <-
  **/
 discrete Chunker(Token word) <-
 learn ChunkLabel
-  using Forms, Capitalization, WordTypeInformation, Affixes, PreviousTags,
-        POSWindow, Mixed, POSWindowpp, Formpp, SOPrevious
+  using Forms, Capitalization, WordTypeInformation, Affixes, //PreviousTags,
+        POSWindow, Mixed, POSWindowpp, Formpp//, SOPrevious
   with SparseNetworkLearner {
     SparseAveragedPerceptron.Parameters p =
       new SparseAveragedPerceptron.Parameters();
